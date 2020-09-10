@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Mistralys/text-diff.svg?branch=master)](https://travis-ci.com/Mistralys/text-diff) 
+
 # DIFF string comparison for PHP
 
 Class used to compare differences between two strings using a DIFF implementation, with the possibility to render the diff to HTML with highlighting.
