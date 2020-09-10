@@ -25,3 +25,7 @@
     */
     require_once $autoloader;
     
+   /**
+    * The abstract test case class
+    */
+    require_once TESTS_ROOT.'/assets/classes/TestCase.php';
