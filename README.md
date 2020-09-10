@@ -31,7 +31,7 @@ $diff = Diff::compareStrings('String 1', 'String 2');
 **Comparing files**
 
 ```php
-$diff = Diff::compareFiles('String 1', 'String 2');
+$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
 ```
 
 Once the diff instance has been created, choose any of the `toXXX` methods to retrieve the diff in your preferred format.
