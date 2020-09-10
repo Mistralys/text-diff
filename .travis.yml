@@ -1,0 +1,6 @@
+language: php
+sudo: false
+
+matrix:
+  include:
+    - php: "7.3"
