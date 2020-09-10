@@ -128,20 +128,20 @@ class HTMLTable extends Renderer
             {
                 // display the content on the left and right
                 case Diff::UNMODIFIED:
-                    $leftCell = self::getCellContent($index, Diff::UNMODIFIED);
+                    $leftCell = $this->getCellContent($index, Diff::UNMODIFIED);
                     $rightCell = $leftCell;
                     break;
                     
                     // display the deleted on the left and inserted content on the right
                 case Diff::DELETED:
-                    $leftCell = self::getCellContent($index, Diff::DELETED);
-                    $rightCell = self::getCellContent($index, Diff::INSERTED);
+                    $leftCell = $this->getCellContent($index, Diff::DELETED);
+                    $rightCell = $this->getCellContent($index, Diff::INSERTED);
                     break;
                     
                     // display the inserted content on the right
                 case Diff::INSERTED:
                     $leftCell = '';
-                    $rightCell = self::getCellContent($index, Diff::INSERTED);
+                    $rightCell = $this->getCellContent($index, Diff::INSERTED);
                     break;
                     
             }
