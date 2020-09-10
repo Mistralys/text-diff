@@ -1,6 +1,6 @@
 # DIFF string comparison for PHP
 
-Class used to compare strings using a DIFF implementation, with the possibility to render the diff to HTML with highlighting.
+Class used to compare differences between two strings using a DIFF implementation, with the possibility to render the diff to HTML with highlighting.
 
 ## Installation
 
@@ -68,7 +68,7 @@ $url = $styler->getStylesheetURL('/vendor'); // URL to the file, given the vendo
 
 For example, to show a highlighted diff with inline styles:
 
-```
+```php
 $diff = Diff::compareStrings('String 1', 'String 2');
 
 echo Diff::createStyler()->getStyleTag();
