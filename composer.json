@@ -1,0 +1,40 @@
+{
+	"name" : "mistralys/text-diff",
+	"description" : "Class used to compare strings using a DIFF implementation.",
+	"type" : "library",
+	"license" : "CC0-1.0",
+	"authors" : 
+	[
+		{
+			"homepage" : "http://iamkate.com",
+			"name" : "Kate Morley",
+			"role" : "Lead"
+		},
+		{
+			"email" : "s.mordziol@mistralys.eu",
+			"name" : "Sebastian Mordziol",
+			"role" : "Developer"
+		}
+	],
+	"autoload" : 
+	{
+		"psr-4" : 
+		{
+			"Mistralys\\TextDiff\\" : "src/"
+		},
+		"classmap" : 
+		[
+			"src/"
+		]
+	},
+	"require" : {
+		"mistralys/application-utils" : "^1.2.5"
+	},
+	"require-dev" : 
+	{
+		"phpunit/phpunit" : ">=8.5",
+		"phpstan/phpstan" : ">=0.12"
+	},
+	"minimum-stability" : "dev",
+	"prefer-stable" : true
+}

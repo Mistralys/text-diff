@@ -1,0 +1,22 @@
+.text-diff-container{
+padding:14px;
+background:#fafafa;
+margin:10px;
+border-radius:5px;
+}
+
+.text-diff-container DEL{
+color:#979797;
+background:#ffe1e1;
+border-radius:2px;
+display:inline-block;
+padding:1px 4px;
+}
+
+.text-diff-container INS{
+color:#1f361f;
+background:#d0ffd0;
+border-radius:2px;
+display:inline-block;
+padding:1px 4px;
+}
