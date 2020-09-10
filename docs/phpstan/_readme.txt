@@ -1,0 +1,1 @@
+Folder used as output for the phpstan analysis.

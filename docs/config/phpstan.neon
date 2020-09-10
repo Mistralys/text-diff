@@ -1,0 +1,7 @@
+parameters:
+    tmpDir: ./
+    excludes_analyse:
+        - tests/*
+        - vendor/*
+    paths:
+        - ../../src
