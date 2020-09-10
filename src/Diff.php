@@ -182,6 +182,7 @@ class Diff
         
         // initialise the sequences and comparison start and end positions
         $start = 0;
+        $totalSequence = 0;
         
         if ($this->compareCharacters)
         {
@@ -189,6 +190,7 @@ class Diff
             $this->sequence2 = $this->string2;
             $end1 = strlen($this->string1) - 1;
             $end2 = strlen($this->string2) - 1;
+            $totalSequence = strlen($this->sequence1);
         }
         else
         {
@@ -196,6 +198,7 @@ class Diff
             $this->sequence2 = $this->splitString($this->string2);
             $end1 = count($this->sequence1) - 1;
             $end2 = count($this->sequence2) - 1;
+            $totalSequence = count($this->sequence1);
         }
         
         // skip any common prefix
@@ -211,11 +214,8 @@ class Diff
             $end2 --;
         }
         
-        // compute the table of longest common subsequence lengths
-        $table = $this->computeTable($start, $end1, $end2);
-        
         // generate the partial diff
-        $partialDiff = $this->generatePartialDiff($table, $start);
+        $partialDiff = $this->generatePartialDiff($start, $end1, $end2);
         
         // generate the full diff
         $diff = array();
@@ -230,13 +230,12 @@ class Diff
             $diff[] = array_pop($partialDiff);
         }
         
-        $max = ($this->compareCharacters ? strlen($this->sequence1) : count($this->sequence1));
-        
-        for ($index = $end1 + 1; $index < $max; $index ++)
+        for ($index = $end1 + 1; $index < $totalSequence; $index ++)
         {
             $diff[] = array($this->sequence1[$index], self::UNMODIFIED);
         }
         
+        // clear the sequences to free up memory, we don't need them anymore
         $this->sequence1 = '';
         $this->sequence2 = '';
         
@@ -311,12 +310,16 @@ class Diff
    /**
     * Returns the partial diff for the specificed sequences, in reverse order.
     * 
-    * @param array<int,array<int,int>> $table
     * @param int $start
+    * @param int $end1
+    * @param int $end2
     * @return array<int,array<int,int|string>>
     */
-    private function generatePartialDiff(array $table, int $start) : array
+    private function generatePartialDiff(int $start, int $end1, int $end2) : array
     {
+        // compute the table of longest common subsequence lengths
+        $table = $this->computeTable($start, $end1, $end2);
+        
         //  initialise the diff
         $diff = array();
         
