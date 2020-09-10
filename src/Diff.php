@@ -31,6 +31,7 @@ use Mistralys\Diff\Styler\Styler;
 class Diff
 {
     const ERROR_DIFF_ALREADY_DISPOSED = 66901;
+    const ERROR_CANNOT_SPLIT_STRING = 66902;
     
     const UNMODIFIED = 0;
     const DELETED    = 1;
@@ -118,7 +119,7 @@ class Diff
     */
     public static function compareFiles(string $file1, string $file2, bool $compareCharacters = false) : Diff
     {
-        return self::compare(
+        return self::compareStrings(
             FileHelper::readContents($file1),
             FileHelper::readContents($file2),
             $compareCharacters
@@ -166,7 +167,7 @@ class Diff
     * Where the second entry in the sub-array is the status 
     * code, e.g. Diff::DELETED, Diff::INSERTED.
     * 
-    * @return array<int,array<int,mixed>>
+    * @return array<int,array<int,int|string>>
     */
     public function toArray() : array
     {
@@ -191,8 +192,8 @@ class Diff
         }
         else
         {
-            $this->sequence1 = preg_split('/\R/', $this->string1);
-            $this->sequence2 = preg_split('/\R/', $this->string2);
+            $this->sequence1 = $this->splitString($this->string1);
+            $this->sequence2 = $this->splitString($this->string2);
             $end1 = count($this->sequence1) - 1;
             $end2 = count($this->sequence2) - 1;
         }
@@ -243,6 +244,29 @@ class Diff
     }
     
    /**
+    * Splits the string into individual characters.
+    * 
+    * @param string $string
+    * @throws DiffException
+    * @return string[]
+    */
+    private function splitString(string $string) : array
+    {
+        $split = preg_split('/\R/', $string);
+        
+        if(is_array($split))
+        {
+            return $split;
+        }
+        
+        throw new DiffException(
+            'Could not split the target string.',
+            'Could the string be badly formatted?',
+            self::ERROR_CANNOT_SPLIT_STRING
+        );
+    }
+    
+   /**
     * Returns the table of longest common subsequence lengths for 
     * the specified sequences.
     * 
@@ -289,7 +313,7 @@ class Diff
     * 
     * @param array<int,array<int,int>> $table
     * @param int $start
-    * @return array<int,array<int,string>>
+    * @return array<int,array<int,int|string>>
     */
     private function generatePartialDiff(array $table, int $start) : array
     {
@@ -338,7 +362,6 @@ class Diff
     * Returns a diff as a string, where unmodified lines are prefixed by '  ',
     * deletions are prefixed by '- ', and insertions are prefixed by '+ '.
     * 
-    * @param array $diff
     * @param string $separator
     * @return string
     */
@@ -355,7 +378,6 @@ class Diff
     * within 'span' elements, deletions are contained within 'del' elements, and
     * insertions are contained within 'ins' elements.
     * 
-    * @param array $diff
     * @param string $separator
     * @return string
     */
@@ -370,7 +392,6 @@ class Diff
    /**
     * Returns a diff as an HTML table.
     * 
-    * @param array $diff
     * @param string $indentation
     * @param string $separator
     * @return string

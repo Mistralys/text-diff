@@ -44,6 +44,8 @@ class HTML extends Renderer
         // loop over the lines in the diff
         foreach ($diff as $line)
         {
+            $element = '';
+            
             // extend the HTML with the line
             switch ($line[1])
             {
@@ -55,7 +57,7 @@ class HTML extends Renderer
             $html .= sprintf(
                 '<%1$s>%2$s</%1$s>',
                 $element,
-                htmlspecialchars($line[0])
+                htmlspecialchars(strval($line[0]))
             );
             
             // extend the HTML with the separator

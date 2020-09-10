@@ -24,7 +24,7 @@ class HTMLTable extends Renderer
     private $tab = '    ';
     
    /**
-    * @var array
+    * @var array<int, array<int,int|string>>
     */
     private $array;
     
@@ -50,6 +50,8 @@ class HTMLTable extends Renderer
     public function setTab(string $tab) : HTMLTable
     {
         $this->tab = $tab;
+        
+        return $this;
     }
     
     public function getTab() : string
@@ -101,9 +103,6 @@ class HTMLTable extends Renderer
    /**
     * Returns a diff as an HTML table.
     *
-    * @param array $this->array
-    * @param string $indentation
-    * @param string $separator
     * @return string
     */
     public function render() : string
@@ -121,6 +120,9 @@ class HTMLTable extends Renderer
         $index = 0;
         while ($index < count($this->array))
         {
+            $leftCell = '';
+            $rightCell = '';
+            
             // determine the line type
             switch ($this->array[$index][1])
             {
@@ -208,7 +210,7 @@ class HTMLTable extends Renderer
             $html .= sprintf(
                 '<%1$s>%2$s</%1$s>%3$s',
                 $tag,
-                htmlspecialchars($this->array[$index][0]),
+                htmlspecialchars(strval($this->array[$index][0])),
                 $this->separator
             );
             

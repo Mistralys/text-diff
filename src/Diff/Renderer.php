@@ -16,5 +16,8 @@ abstract class Renderer
         $this->diff = $diff;
     }
     
+   /**
+    * @return mixed
+    */
     abstract public function render();
 }
