@@ -1,10 +1,9 @@
 <?php
 
 use Mistralys\Diff\Diff;
-use PHPUnit\Framework\TestCase;
 use Mistrals\Diff\Renderer\PlainText;
 
-final class Diff_Renderers_StringTest extends TestCase
+final class Diff_Renderers_StringTest extends DiffTestCase
 {
     public function test_parse()
     {

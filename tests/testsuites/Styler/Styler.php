@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Mistralys\Diff\Diff;
 use AppUtils\FileHelper;
 
-final class Diff_Styler_StylerTest extends TestCase
+final class Diff_Styler_StylerTest extends DiffTestCase
 {
     public function test_getPath()
     {

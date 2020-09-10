@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Mistrals\Diff\Renderer\HTMLTable;
 use Mistralys\Diff\Diff;
 
-final class Diff_Renderers_HTMLTableTest extends TestCase
+final class Diff_Renderers_HTMLTableTest extends DiffTestCase
 {
     public function test_parse()
     {

@@ -1,10 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Mistralys\Diff\Diff;
 use Mistralys\Diff\DiffException;
 
-final class Diff_Core_ParseTest extends TestCase
+final class Diff_Core_ParseTest extends DiffTestCase
 {
     public function test_unmodified() : void
     {
@@ -46,5 +45,15 @@ final class Diff_Core_ParseTest extends TestCase
         $this->expectException(DiffException::class);
         
         $diff->toArray();
+    }
+    
+    public function test_compareFiles() : void
+    {
+        $file1 = $this->filesFolder.'/string1.txt';
+        $file2 = $this->filesFolder.'/string2.txt';
+        
+        $array = Diff::compareFiles($file1, $file2)->toArray();
+        
+        $this->assertEquals($array[1][1], Diff::INSERTED);
     }
 }

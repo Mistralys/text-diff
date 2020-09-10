@@ -2,9 +2,8 @@
 
 use Mistralys\Diff\Diff;
 use Mistrals\Diff\Renderer\HTML;
-use PHPUnit\Framework\TestCase;
 
-final class Diff_Renderers_HTMLTest extends TestCase
+final class Diff_Renderers_HTMLTest extends DiffTestCase
 {
     public function test_parse()
     {
