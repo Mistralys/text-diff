@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Mistralys/text-diff.svg?branch=master)](https://travis-ci.com/Mistralys/text-diff) [![Build Status](https://scrutinizer-ci.com/g/Mistralys/text-diff/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Mistralys/text-diff/build-status/master)
+[![Build Status](https://travis-ci.com/Mistralys/text-diff.svg?branch=master)](https://travis-ci.com/Mistralys/text-diff) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Mistralys/text-diff/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Mistralys/text-diff/?branch=master)
 
 # DIFF string comparison for PHP
 
