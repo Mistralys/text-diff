@@ -5,39 +5,21 @@ declare(strict_types=1);
 namespace Mistrals\Diff\Renderer;
 
 use Mistralys\Diff\Diff;
+use Mistralys\Diff\DiffException;
 
 class HTMLTable extends Renderer
 {
-    /**
-     * @var string
-     */
-    private $separator = '<br>';
-    
-   /**
-    * @var string
-    */
-    private $indentation = '';
-    
-   /**
-    * @var string
-    */
-    private $tab = '    ';
-    
+    private string $separator = '<br>';
+    private string $indentation = '';
+    private string $tab = '    ';
+    private string $nl = PHP_EOL;
+    private string $container = '<table class="text-diff-container">%s</table>';
+
    /**
     * @var array<int, array<int,int|string>>
     */
     private $array;
-    
-   /**
-    * @var string
-    */
-    private $nl = PHP_EOL;
-    
-   /**
-    * @var string
-    */
-    private $container = '<table class="text-diff-container">%s</table>';
-    
+
    /**
     * Sets the tab character(s) to indent the HTML code with.
     * This is used to indent the table's tags beyond the
@@ -99,12 +81,13 @@ class HTMLTable extends Renderer
     {
         return $this->indentation;
     }
-    
-   /**
-    * Returns a diff as an HTML table.
-    *
-    * @return string
-    */
+
+    /**
+     * Returns a diff as an HTML table.
+     *
+     * @return string
+     * @throws DiffException
+     */
     public function render() : string
     {
         $this->array = $this->diff->toArray();
@@ -140,7 +123,6 @@ class HTMLTable extends Renderer
                     
                     // display the inserted content on the right
                 case Diff::INSERTED:
-                    $leftCell = '';
                     $rightCell = $this->getCellContent($index, Diff::INSERTED);
                     break;
                     
@@ -168,7 +150,7 @@ class HTMLTable extends Renderer
             return 'empty';
         }
         
-        else if($leftCell !== $rightCell)
+        if($leftCell !== $rightCell)
         {
             return 'del';
         }
@@ -183,7 +165,7 @@ class HTMLTable extends Renderer
             return 'empty';
         }
         
-        else if($leftCell !== $rightCell)
+        if($leftCell !== $rightCell)
         {
             return 'ins';
         }
@@ -205,12 +187,12 @@ class HTMLTable extends Renderer
         $tag = $this->resolveTag($type);
         
         // loop over the matching lines, adding them to the HTML
-        while ($index < count($this->array) && $this->array[$index][1] == $type)
+        while ($index < count($this->array) && $this->array[$index][1] === $type)
         {
             $html .= sprintf(
                 '<%1$s>%2$s</%1$s>%3$s',
                 $tag,
-                htmlspecialchars(strval($this->array[$index][0])),
+                htmlspecialchars((string)$this->array[$index][0]),
                 $this->separator
             );
             

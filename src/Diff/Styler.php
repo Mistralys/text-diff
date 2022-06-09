@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mistralys\Diff\Styler;
 
 use AppUtils\FileHelper;
+use AppUtils\FileHelper_Exception;
 use Mistralys\Diff\DiffException;
 
 /**
@@ -24,18 +25,14 @@ use Mistralys\Diff\DiffException;
  */
 class Styler
 {
-    const ERROR_CSS_FILE_NOT_FOUND = 66801;
+    public const ERROR_CSS_FILE_NOT_FOUND = 66801;
     
-   /**
-    * @var string
-    */
-    private $path;
-    
-   /**
-    * @var string
-    */
-    private $fileName = 'styles.css';
-    
+    private string $path;
+    private string $fileName = 'styles.css';
+
+    /**
+     * @throws DiffException
+     */
     public function __construct()
     {
         $folder = sprintf(__DIR__.'/../../css/%s', $this->fileName);
@@ -55,23 +52,25 @@ class Styler
         
         $this->path = $path;
     }
-   
-   /**
-    * Retrieves the raw CSS source for the highlighting.
-    * 
-    * @return string
-    */
+
+    /**
+     * Retrieves the raw CSS source for the highlighting.
+     *
+     * @return string
+     * @throws FileHelper_Exception
+     */
     public function getCSS() : string
     {
         return FileHelper::readContents($this->path);
     }
-    
-   /**
-    * Retrieves a fully formed `code` tag with the CSS,
-    * to inject inline into an HTML document.
-    * 
-    * @return string
-    */
+
+    /**
+     * Retrieves a fully formed `code` tag with the CSS,
+     * to inject inline into an HTML document.
+     *
+     * @return string
+     * @throws FileHelper_Exception
+     */
     public function getStyleTag() : string
     {
         return sprintf(

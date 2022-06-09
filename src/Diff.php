@@ -30,28 +30,18 @@ use Mistralys\Diff\Styler\Styler;
  */
 class Diff
 {
-    const ERROR_DIFF_ALREADY_DISPOSED = 66901;
-    const ERROR_CANNOT_SPLIT_STRING = 66902;
+    public const ERROR_DIFF_ALREADY_DISPOSED = 66901;
+    public const ERROR_CANNOT_SPLIT_STRING = 66902;
     
-    const UNMODIFIED = 0;
-    const DELETED    = 1;
-    const INSERTED   = 2;
+    public const UNMODIFIED = 0;
+    public const DELETED    = 1;
+    public const INSERTED   = 2;
     
-   /**
-    * @var boolean
-    */
-    private $compareCharacters = false;
-    
-   /**
-    * @var string
-    */
-    private $string1;
-    
-   /**
-    * @var string
-    */
-    private $string2;
-    
+    private bool $compareCharacters = false;
+    private string $string1;
+    private string $string2;
+    private bool $disposed = false;
+
    /**
     * @var string|string[]
     */
@@ -61,11 +51,6 @@ class Diff
     * @var string|string[]
     */
     private $sequence2 = '';
-    
-   /**
-    * @var boolean
-    */
-    private $disposed = false;
     
     public function __construct(string $string1, string $string2)
     {
@@ -89,7 +74,7 @@ class Diff
     
    /**
     * Returns the diff for two strings. The return value is an array, each of
-    * whose values is an array containing two values: a line (or character, if
+    * whose values are an array containing two values: a line (or character, if
     * $compareCharacters is true), and one of the constants DIFF::UNMODIFIED (the
     * line or character is in both strings), DIFF::DELETED (the line or character
     * is only in the first string), and DIFF::INSERTED (the line or character is
@@ -137,38 +122,39 @@ class Diff
     {
         return new Styler();
     }
-    
-   /**
-    * Retrieves the raw array that contains the diff definitions
-    * for the two strings.
-    * 
-    * For example, comparing the following strings:
-    * 
-    * Hello word
-    * Hello world
-    * 
-    * Will return the following array:
-    * 
-    * <pre>
-    * Array(
-    *   [0] => Array
-    *   (
-    *     [0] => Hello word
-    *     [1] => 1
-    *   )
-    *   [1] => Array
-    *   (
-    *     [0] => Hello world
-    *     [1] => 2
-    *   )
-    * )
-    * </pre>
-    * 
-    * Where the second entry in the sub-array is the status 
-    * code, e.g. Diff::DELETED, Diff::INSERTED.
-    * 
-    * @return array<int,array<int,int|string>>
-    */
+
+    /**
+     * Retrieves the raw array that contains the diff definitions
+     * for the two strings.
+     *
+     * For example, comparing the following strings:
+     *
+     * Hello word
+     * Hello world
+     *
+     * Will return the following array:
+     *
+     * <pre>
+     * Array(
+     *   [0] => Array
+     *   (
+     *     [0] => Hello word
+     *     [1] => 1
+     *   )
+     *   [1] => Array
+     *   (
+     *     [0] => Hello world
+     *     [1] => 2
+     *   )
+     * )
+     * </pre>
+     *
+     * Where the second entry in the sub-array is the status
+     * code, e.g. Diff::DELETED, Diff::INSERTED.
+     *
+     * @return array<int,array<int,int|string>>
+     * @throws DiffException
+     */
     public function toArray() : array
     {
         if($this->disposed)
@@ -182,8 +168,7 @@ class Diff
         
         // initialise the sequences and comparison start and end positions
         $start = 0;
-        $totalSequence = 0;
-        
+
         if ($this->compareCharacters)
         {
             $this->sequence1 = $this->string1;
@@ -202,13 +187,13 @@ class Diff
         }
         
         // skip any common prefix
-        while ($start <= $end1 && $start <= $end2 && $this->sequence1[$start] == $this->sequence2[$start])
+        while ($start <= $end1 && $start <= $end2 && $this->sequence1[$start] === $this->sequence2[$start])
         {
             $start ++;
         }
         
         // skip any common suffix
-        while ($end1 >= $start && $end2 >= $start && $this->sequence1[$end1] == $this->sequence2[$end2])
+        while ($end1 >= $start && $end2 >= $start && $this->sequence1[$end1] === $this->sequence2[$end2])
         {
             $end1 --;
             $end2 --;
@@ -266,8 +251,8 @@ class Diff
     }
     
    /**
-    * Returns the table of longest common subsequence lengths for 
-    * the specified sequences.
+    * Returns the table of the longest common subsequence lengths
+    * for the specified sequences.
     * 
     * @param int $start
     * @param int $end1
@@ -294,7 +279,7 @@ class Diff
                 
                 // store the longest common subsequence length
                 if ($this->sequence1[$index1 + $start - 1]
-                    == $this->sequence2[$index2 + $start - 1]){
+                    === $this->sequence2[$index2 + $start - 1]){
                         $table[$index1][$index2] = $table[$index1 - 1][$index2 - 1] + 1;
                 }else{
                     $table[$index1][$index2] =
@@ -308,7 +293,7 @@ class Diff
     }
     
    /**
-    * Returns the partial diff for the specificed sequences, in reverse order.
+    * Returns the partial diff for the specified sequences, in reverse order.
     * 
     * @param int $start
     * @param int $end1
@@ -317,7 +302,7 @@ class Diff
     */
     private function generatePartialDiff(int $start, int $end1, int $end2) : array
     {
-        // compute the table of longest common subsequence lengths
+        // compute the table of the longest common subsequence lengths
         $table = $this->computeTable($start, $end1, $end2);
         
         //  initialise the diff
@@ -334,7 +319,7 @@ class Diff
             if (
                 $index1 > 0 && $index2 > 0
                 && $this->sequence1[$index1 + $start - 1]
-                == $this->sequence2[$index2 + $start - 1]
+                === $this->sequence2[$index2 + $start - 1]
             ){
                 // update the diff and the indices
                 $diff[] = array($this->sequence1[$index1 + $start - 1], self::UNMODIFIED);
@@ -343,7 +328,7 @@ class Diff
             }
             elseif (
                 $index2 > 0
-                && $table[$index1][$index2] == $table[$index1][$index2 - 1]
+                && $table[$index1][$index2] === $table[$index1][$index2 - 1]
             ) {
                 // update the diff and the indices
                 $diff[] = array($this->sequence2[$index2 + $start - 1], self::INSERTED);

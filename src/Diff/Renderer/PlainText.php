@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Mistrals\Diff\Renderer;
 
 use Mistralys\Diff\Diff;
+use Mistralys\Diff\DiffException;
 
 class PlainText extends Renderer
 {
-   /**
-    * @var string
-    */
-    private $separator = "\n";
+    private string $separator = "\n";
     
     public function setSeparator(string $separator) : PlainText
     {
@@ -24,7 +22,11 @@ class PlainText extends Renderer
     {
         return $this->separator;
     }
-    
+
+    /**
+     * @return string
+     * @throws DiffException
+     */
     public function render() : string
     {
         $string = '';

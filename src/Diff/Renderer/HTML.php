@@ -5,18 +5,12 @@ declare(strict_types=1);
 namespace Mistrals\Diff\Renderer;
 
 use Mistralys\Diff\Diff;
+use Mistralys\Diff\DiffException;
 
 class HTML extends Renderer
 {
-   /**
-    * @var string
-    */
-    private $separator = '<br>';
-    
-   /**
-    * @var string
-    */
-    private $container = '<div class="text-diff-container">%s</div>';
+    private string $separator = '<br>';
+    private string $container = '<div class="text-diff-container">%s</div>';
     
     public function setSeparator(string $separator) : HTML
     {
@@ -34,7 +28,11 @@ class HTML extends Renderer
     {
         return $this->container;
     }
-    
+
+    /**
+     * @return string
+     * @throws DiffException
+     */
     public function render() : string
     {
         $html = '';
@@ -57,7 +55,7 @@ class HTML extends Renderer
             $html .= sprintf(
                 '<%1$s>%2$s</%1$s>',
                 $element,
-                htmlspecialchars(strval($line[0]))
+                htmlspecialchars((string)$line[0])
             );
             
             // extend the HTML with the separator
