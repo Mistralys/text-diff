@@ -6,7 +6,7 @@
 	"authors" : 
 	[
 		{
-			"homepage" : "http://iamkate.com",
+			"homepage" : "https://iamkate.com",
 			"name" : "Kate Morley",
 			"role" : "Lead"
 		},
@@ -18,22 +18,23 @@
 	],
 	"autoload" : 
 	{
-		"psr-4" : 
-		{
-			"Mistralys\\TextDiff\\" : "src/"
-		},
-		"classmap" : 
+		"classmap" :
 		[
 			"src/"
 		]
 	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/assets/classes"
+		]
+	},
 	"require" : {
-		"mistralys/application-utils" : "^1.2.5"
+		"mistralys/application-utils" : ">=1.2.5"
 	},
 	"require-dev" : 
 	{
-		"phpunit/phpunit" : ">=8.5",
-		"phpstan/phpstan" : ">=0.12"
+		"phpunit/phpunit" : ">=9.5",
+		"phpstan/phpstan" : ">=1.7"
 	},
 	"minimum-stability" : "dev",
 	"prefer-stable" : true
