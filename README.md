@@ -45,7 +45,7 @@ $array = $diff->toArray();
 
 ### Changing the comparison mode
 
-By default the comparison will be made per line. It can be changed to be done on a per character basis:
+By default, the comparison will be made per line. It can be changed to be done on a per-character basis:
 
 ```php
 $diff->setCompareCharacters(true);
