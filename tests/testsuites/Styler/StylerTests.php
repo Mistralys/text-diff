@@ -1,28 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DiffUnitTests\Styler;
+
+use DiffUnitTests\DiffTestCase;
 use Mistralys\Diff\Diff;
 use AppUtils\FileHelper;
 
-final class Diff_Styler_StylerTest extends DiffTestCase
+final class StylerTests extends DiffTestCase
 {
-    public function test_getPath()
+    public function test_getPath() : void
     {
         $styler = Diff::createStyler();
-        
+
         $path = $styler->getStylesheetPath();
-        
+
         $this->assertEquals(
-            FileHelper::normalizePath($path), 
-            FileHelper::normalizePath(realpath('../../../css/styles.css'))
+            FileHelper::normalizePath($path),
+            FileHelper::normalizePath(__DIR__.'/../../../css/styles.css')
         );
     }
-    
-    public function test_getCSS()
+
+    public function test_getCSS() : void
     {
         $styler = Diff::createStyler();
-        
+
         $css = $styler->getCSS();
-        
+
         $this->assertEquals($css, file_get_contents($styler->getStylesheetPath()));
     }
 }
