@@ -1,31 +1,26 @@
 <?php
 /**
- * Main bootstrapper used to set up the testsuites environment.
+ * Main bootstrapper used to set up the testsuite environment.
  * 
  * @package Diff
  * @subpackage Tests
  * @author Sebastian Mordziol <s.mordziol@mistralys.eu>
  */
 
-    /**
-     * The tests root folder (this file's location)
-     * @var string
-     */
-    define('TESTS_ROOT', __DIR__ );
+declare(strict_types=1);
 
-    $autoloader = realpath(TESTS_ROOT.'/../vendor/autoload.php');
-    
-    if($autoloader === false) 
-    {
-        die('ERROR: The autoloader is not present. Run composer install first.');
-    }
+namespace Mistralys\Diff;
 
-   /**
-    * The composer autoloader
-    */
-    require_once $autoloader;
-    
-   /**
-    * The abstract test case class
-    */
-    require_once TESTS_ROOT.'/assets/classes/TestCase.php';
+const TESTS_ROOT = __DIR__;
+
+$autoloader = TESTS_ROOT.'/../vendor/autoload.php';
+
+if(!file_exists($autoloader))
+{
+    die('ERROR: The autoloader is not present. Run composer install first.');
+}
+
+/**
+* The composer autoloader
+*/
+require_once $autoloader;
