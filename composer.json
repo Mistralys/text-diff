@@ -29,12 +29,13 @@
 		]
 	},
 	"require" : {
-		"mistralys/application-utils" : ">=1.2.5"
+		"mistralys/application-utils" : ">=1.2.5",
+		"php" : ">=7.4"
 	},
 	"require-dev" : 
 	{
-		"phpunit/phpunit" : ">=9.5",
-		"phpstan/phpstan" : ">=1.7"
+		"phpunit/phpunit" : ">=9.6",
+		"phpstan/phpstan" : ">=1.9"
 	},
 	"minimum-stability" : "dev",
 	"prefer-stable" : true
