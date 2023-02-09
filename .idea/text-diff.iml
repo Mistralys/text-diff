@@ -7,9 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/testsuites/Core" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/testsuites/Renderers" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mistralys/application-utils" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-invoker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-file-iterator" />
@@ -40,9 +38,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/lines-of-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/object-enumerator" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/geshi/geshi" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
     </content>
