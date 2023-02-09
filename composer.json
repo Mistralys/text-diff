@@ -2,7 +2,7 @@
 	"name" : "mistralys/text-diff",
 	"description" : "Class used to compare strings using a DIFF implementation.",
 	"type" : "library",
-	"license" : "CC0-1.0",
+	"license" : "MIT",
 	"authors" : 
 	[
 		{
