@@ -1,3 +1,9 @@
+### v2.0.1 - Unicode fix
+- Unicode characters are now correctly recognized.
+- Added public `Diff::splitLines()` method.
+- Added public `Diff::splitCharacters()` method.
+- Switched to an MIT license.
+
 ### v2.0.0 - PHP 7.4 release
 - Upgraded the code to 7.4 style.
 - Loosened the `mistralys/application-utils` version constraint.
