@@ -61,4 +61,30 @@ final class ParseTests extends DiffTestCase
 
         $this->assertEquals($array[1][1], Diff::INSERTED);
     }
+
+    public function test_splitUnicodeString() : void
+    {
+        $split = Diff::splitCharacters('öäéç€');
+
+        $this->assertCount(5, $split);
+        $this->assertSame('ö', $split[0]);
+        $this->assertSame('ä', $split[1]);
+        $this->assertSame('é', $split[2]);
+        $this->assertSame('ç', $split[3]);
+        $this->assertSame('€', $split[4]);
+    }
+
+    /**
+     * @link https://github.com/Mistralys/text-diff/issues/1
+     */
+    public function test_unicodeCharacters() : void
+    {
+        $diff = Diff::compareStrings(
+            "Géhu – jun02 (LM).",
+            "Géhu et al. 1984 (31) – jun02 (LM).",
+            true
+        );
+
+        $this->assertStringContainsString('<span>é</span>', $diff->toHTML());
+    }
 }
