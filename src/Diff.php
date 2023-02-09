@@ -171,20 +171,18 @@ class Diff
 
         if ($this->compareCharacters)
         {
-            $this->sequence1 = $this->string1;
-            $this->sequence2 = $this->string2;
-            $end1 = strlen($this->string1) - 1;
-            $end2 = strlen($this->string2) - 1;
-            $totalSequence = strlen($this->sequence1);
+            $this->sequence1 = self::splitCharacters($this->string1);
+            $this->sequence2 = self::splitCharacters($this->string2);
         }
         else
         {
-            $this->sequence1 = $this->splitString($this->string1);
-            $this->sequence2 = $this->splitString($this->string2);
-            $end1 = count($this->sequence1) - 1;
-            $end2 = count($this->sequence2) - 1;
-            $totalSequence = count($this->sequence1);
+            $this->sequence1 = self::splitLines($this->string1);
+            $this->sequence2 = self::splitLines($this->string2);
         }
+
+        $end1 = count($this->sequence1) - 1;
+        $end2 = count($this->sequence2) - 1;
+        $totalSequence = count($this->sequence1);
         
         // skip any common prefix
         while ($start <= $end1 && $start <= $end2 && $this->sequence1[$start] === $this->sequence2[$start])
@@ -228,13 +226,13 @@ class Diff
     }
     
    /**
-    * Splits the string into individual characters.
+    * Splits the string into individual lines.
     * 
     * @param string $string
     * @throws DiffException
     * @return string[]
     */
-    private function splitString(string $string) : array
+    public static function splitLines(string $string) : array
     {
         $split = preg_split('/\R/', $string);
         
@@ -243,6 +241,29 @@ class Diff
             return $split;
         }
         
+        throw new DiffException(
+            'Could not split the target string.',
+            'Could the string be badly formatted?',
+            self::ERROR_CANNOT_SPLIT_STRING
+        );
+    }
+
+    /**
+     * Splits the string into individual characters.
+     *
+     * @param string $string
+     * @throws DiffException
+     * @return string[]
+     */
+    public static function splitCharacters(string $string) : array
+    {
+        $split = mb_str_split($string);
+
+        if(is_array($split))
+        {
+            return $split;
+        }
+
         throw new DiffException(
             'Could not split the target string.',
             'Could the string be badly formatted?',
