@@ -27,12 +27,16 @@ Or clone it locally via GIT, or download any of the
 ### Comparing strings
 
 ```php
+use Mistralys\Diff\Diff;
+
 $diff = Diff::compareStrings('String 1', 'String 2');
 ```
 
 ### Comparing files
 
 ```php
+use Mistralys\Diff\Diff;
+
 $diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
 ```
 
@@ -40,6 +44,10 @@ Once the diff instance has been created, choose any of the `toXXX`
 methods to retrieve the diff in your preferred format.
 
 ```php
+use Mistralys\Diff\Diff;
+
+$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
+
 $string = $diff->toString();
 $html = $diff->toHTML();
 $table = $diff->toHTMLTable();
@@ -52,6 +60,10 @@ By default, the comparison will be made per line. It can be changed
 to be done on a per-character basis:
 
 ```php
+use Mistralys\Diff\Diff;
+
+$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
+
 $diff->setCompareCharacters(true);
 ```
 
@@ -62,12 +74,19 @@ changes with the integrated CSS styles. To insert these, use the
 `Styler` class: it offers several ways to access the CSS.
 
 ```php
+use Mistralys\Diff\Diff;
+
+$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
 $styler = Diff::createStyler();
 ```
 
 From here, use any of the styler's methods according to your project's needs.
 
 ```php
+use Mistralys\Diff\Diff;
+
+$styler = Diff::createStyler();
+
 $css = $styler->getCSS(); // get the raw CSS styles
 $tag = $styler->getStyleTag(); // CSS styles with a <style> tag
 $path = $styler->getStylesheetPath(); // absolute path to the file
@@ -77,6 +96,8 @@ $url = $styler->getStylesheetURL('/vendor'); // URL to the file, given the vendo
 For example, to show a highlighted diff with inline styles:
 
 ```php
+use Mistralys\Diff\Diff;
+
 $diff = Diff::compareStrings('String 1', 'String 2');
 
 echo Diff::createStyler()->getStyleTag();
