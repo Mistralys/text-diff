@@ -234,7 +234,7 @@ class Diff
     */
     public static function splitLines(string $string) : array
     {
-        $split = preg_split('/\R/', $string);
+        $split = preg_split('/\p{Zs}/u', $string);
         
         if(is_array($split))
         {
