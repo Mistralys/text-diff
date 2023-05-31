@@ -87,4 +87,43 @@ final class ParseTests extends DiffTestCase
 
         $this->assertStringContainsString('<span>é</span>', $diff->toHTML());
     }
+
+    /**
+     * @see https://github.com/Mistralys/text-diff/issues/4
+     */
+    public function test_coreanCharacters() : void
+    {
+        $diff = new Diff('안녕하세요! 오늘 날씨가 좋네요.', '안녕하세! 오늘 날씨가 좋네요.');
+        $diff->setCompareCharacters(false);
+
+        $result = $diff->toString();
+
+        $this->assertStringContainsString('안녕하세요! 오늘 날씨가 좋네요.', $result);
+        $this->assertStringContainsString('안녕하세! 오늘 날씨가 좋네요.', $result);
+    }
+
+    public function test_splitCoreanLines() : void
+    {
+        $this->assertSame(
+            array(
+                '안녕하세요! 오늘 날씨가 좋네요.'
+            ),
+            Diff::splitLines('안녕하세요! 오늘 날씨가 좋네요.')
+        );
+    }
+
+    public function test_splitCoreanCharacters() : void
+    {
+        $this->assertSame(
+            array(
+                '안',
+                '녕',
+                '하',
+                '세',
+                '요',
+                '!'
+            ),
+            Diff::splitCharacters('안녕하세요!')
+        );
+    }
 }
