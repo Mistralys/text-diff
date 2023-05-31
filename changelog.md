@@ -1,3 +1,6 @@
+### v2.0.2 - Corean characters fix
+- Fixed `Diff::splitLines()` breaking corean characters ([#4](https://github.com/Mistralys/text-diff/issues/4)).
+
 ### v2.0.1 - Unicode fix
 - Unicode characters are now correctly recognized.
 - Added public `Diff::splitLines()` method.
