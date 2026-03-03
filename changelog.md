@@ -6,6 +6,7 @@
 - Composer: Raised minimum PHPUnit dev requirement to 12.0.
 - License: Added the MIT LICENSE file to the repository ([#2](https://github.com/Mistralys/text-diff/issues/2)).
 - Docs: Added agentic coding support with AGENTS.md and project manifest.
+- Code: PHPStan clean up to level 9.
 
 ### Breaking Changes
 
