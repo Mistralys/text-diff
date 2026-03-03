@@ -257,18 +257,7 @@ class Diff
      */
     public static function splitCharacters(string $string) : array
     {
-        $split = mb_str_split($string);
-
-        if(is_array($split))
-        {
-            return $split;
-        }
-
-        throw new DiffException(
-            'Could not split the target string.',
-            'Could the string be badly formatted?',
-            self::ERROR_CANNOT_SPLIT_STRING
-        );
+        return mb_str_split($string);
     }
     
    /**
