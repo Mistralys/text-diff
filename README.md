@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/Mistralys/text-diff.svg?branch=master)](https://travis-ci.com/Mistralys/text-diff) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Mistralys/text-diff/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Mistralys/text-diff/?branch=master)
-
 # DIFF string comparison for PHP
 
 Class used to compare differences between two strings using a DIFF 
@@ -8,7 +6,7 @@ with highlighting.
 
 ## Requirements
 
-- PHP 7.4+
+- PHP 8.4+
 - [Composer](https://getcomposer.org)
 
 ## Installation
@@ -16,7 +14,7 @@ with highlighting.
 Require via composer:
 
 ```
-require mistralys/text-diff
+composer require mistralys/text-diff
 ```
 
 Or clone it locally via GIT, or download any of the 
@@ -43,27 +41,40 @@ $diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
 Once the diff instance has been created, choose any of the `toXXX`
 methods to retrieve the diff in your preferred format.
 
+> **Important:** Each `Diff` instance is single-use. All render methods
+> (`toString`, `toHTML`, `toHTMLTable`, `toArray`) call the internal diff
+> engine which clears itself after the first run. Only call **one** render
+> method per instance; create a new instance for each render.
+
 ```php
 use Mistralys\Diff\Diff;
 
-$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
-
-$string = $diff->toString();
-$html = $diff->toHTML();
-$table = $diff->toHTMLTable();
-$array = $diff->toArray();
+// Each call gets its own instance:
+$string = Diff::compareFiles('/path/to/file1', '/path/to/file2')->toString();
+$html   = Diff::compareFiles('/path/to/file1', '/path/to/file2')->toHTML();
+$table  = Diff::compareFiles('/path/to/file1', '/path/to/file2')->toHTMLTable();
+$array  = Diff::compareFiles('/path/to/file1', '/path/to/file2')->toArray();
 ```
 
 ### Changing the comparison mode
 
 By default, the comparison will be made per line. It can be changed
-to be done on a per-character basis:
+to be done on a per-character basis.
+
+Pass `true` as the third argument to the factory method:
+
+```php
+use Mistralys\Diff\Diff;
+
+$diff = Diff::compareFiles('/path/to/file1', '/path/to/file2', true);
+```
+
+Or use the fluent setter on an existing instance:
 
 ```php
 use Mistralys\Diff\Diff;
 
 $diff = Diff::compareFiles('/path/to/file1', '/path/to/file2');
-
 $diff->setCompareCharacters(true);
 ```
 
@@ -87,10 +98,11 @@ use Mistralys\Diff\Diff;
 
 $styler = Diff::createStyler();
 
-$css = $styler->getCSS(); // get the raw CSS styles
-$tag = $styler->getStyleTag(); // CSS styles with a <style> tag
-$path = $styler->getStylesheetPath(); // absolute path to the file
-$url = $styler->getStylesheetURL('/vendor'); // URL to the file, given the vendor folder URL
+$css  = $styler->getCSS();                          // raw CSS string
+$tag  = $styler->getStyleTag();                     // CSS wrapped in a <style> tag
+$path = $styler->getStylesheetPath();               // absolute path to the stylesheet file
+$url  = $styler->getStylesheetURL('/vendor');       // URL to the file, given the vendor folder URL
+$link = $styler->getStylesheetTag('/vendor');       // a full <link rel="stylesheet"> tag
 ```
 
 For example, to show a highlighted diff with inline styles:
@@ -103,6 +115,23 @@ $diff = Diff::compareStrings('String 1', 'String 2');
 echo Diff::createStyler()->getStyleTag();
 echo $diff->toHTML();
 ```
+
+### Releasing diff instances
+
+When a `Diff` instance is no longer needed and you want to free its memory
+explicitly, call `dispose()`:
+
+```php
+use Mistralys\Diff\Diff;
+
+$diff = Diff::compareStrings('String 1', 'String 2');
+$html = $diff->toHTML();
+
+$diff->dispose();
+```
+
+> **Note:** Calling any render method after `dispose()` will throw a
+> `DiffException`. Always render before disposing.
 
 ## Credits
 
