@@ -35,7 +35,20 @@
 	"require-dev" : 
 	{
 		"phpunit/phpunit" : ">=12.0",
-		"phpstan/phpstan" : ">=1.9"
+		"phpstan/phpstan" : ">=2.1",
+		"phpstan/phpstan-phpunit" : ">=2.0",
+		"roave/security-advisories" : "dev-latest"
+	},
+	"scripts" : 
+	{
+		"analyze" : "php vendor/bin/phpstan analyse --configuration phpstan.neon --memory-limit=900M",
+		"analyze-save" : "php vendor/bin/phpstan analyse --configuration phpstan.neon --memory-limit=900M > phpstan-result.txt || true",
+		"analyze-clear" : "php vendor/bin/phpstan clear-result-cache",
+		"test" : "php vendor/bin/phpunit",
+		"test-file" : "php vendor/bin/phpunit --no-progress",
+		"test-suite" : "php vendor/bin/phpunit --no-progress --testsuite",
+		"test-filter" : "php vendor/bin/phpunit --no-progress --filter",
+		"test-group" : "php vendor/bin/phpunit --no-progress --group"
 	},
 	"minimum-stability" : "dev",
 	"prefer-stable" : true

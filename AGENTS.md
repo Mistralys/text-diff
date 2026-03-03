@@ -81,17 +81,34 @@ Do **not** scan source files when the answer is already in the manifest.
 
 ---
 
-## 5. Project Stats
+## 5. Composer Scripts
+
+Run these via `composer <script>` from the project root.
+
+| Script | Command | Description |
+|---|---|---|
+| `test` | `phpunit` | Run all registered test suites. |
+| `test-file` | `phpunit --no-progress` | Run tests without progress output (for file-scoped runs). |
+| `test-suite` | `phpunit --no-progress --testsuite <name>` | Run a specific test suite by name. |
+| `test-filter` | `phpunit --no-progress --filter <pattern>` | Run tests matching a name filter. |
+| `test-group` | `phpunit --no-progress --group <name>` | Run tests belonging to a group. |
+| `analyze` | `phpstan analyse --configuration phpstan.neon` | Run static analysis (output to console). |
+| `analyze-save` | same + `> phpstan-result.txt` | Save analysis output to `phpstan-result.txt`. |
+| `analyze-clear` | `phpstan clear-result-cache` | Clear the PHPStan result cache. |
+
+---
+
+## 6. Project Stats
 
 | Property | Value |
 |---|---|
-| **Language / Runtime** | PHP 7.4+ (strict typing) |
+| **Language / Runtime** | PHP 8.4+ (strict typing) |
 | **Architecture** | Static factory + Strategy/Renderer pattern |
 | **Package manager** | Composer (`classmap` autoloading) |
 | **Package name** | `mistralys/text-diff` |
 | **License** | MIT |
-| **Test framework** | PHPUnit ≥ 9.6 |
-| **Static analysis** | PHPStan ≥ 1.9 (`docs/config/phpstan.neon`) |
+| **Test framework** | PHPUnit ≥ 13.0 |
+| **Static analysis** | PHPStan ≥ 2.1 (`phpstan.neon` in project root) |
 | **Build/test shortcut** | `run-tests.bat` (project root) |
-| **Key dependency** | `mistralys/application-utils ≥ 1.2.5` |
+| **Key dependency** | `mistralys/application-utils ≥ 3.2.0` |
 | **Current version** | 2.0.2 |

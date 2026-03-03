@@ -4,3 +4,6 @@ composer.phar
 .phpunit.result.cache
 docs/config/resultCache.php
 docs/phpstan/output.txt
+/.phpunit.cache/
+/cache/
+resultCache.php

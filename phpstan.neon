@@ -1,0 +1,8 @@
+parameters:
+    level: 9
+    tmpDir: ./
+    excludePaths:
+        - vendor/*
+    paths:
+        - src
+        - tests
