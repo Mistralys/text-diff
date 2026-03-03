@@ -29,6 +29,14 @@ text-diff/
 │           ├── HTMLTable.php      # Renders diff as a two-column HTML table
 │           └── PlainText.php      # Renders diff as prefixed plain text
 │
+├── example/
+│   ├── index.php                  # Live PHP example page (requires a web server)
+│   ├── build.php                  # CLI build script — generates example/dist/index.html
+│   ├── sample-original.txt        # Sample input file (original)
+│   └── sample-modified.txt        # Sample input file (modified)
+│   └── dist/
+│       └── index.html             # Pre-built static HTML preview (committed to VCS)
+│
 └── tests/
     ├── bootstrap.php              # Test bootstrap (loads Composer autoloader)
     ├── assets/

@@ -1,6 +1,7 @@
 # Text Diff Changelog
 
 ## v2.1.0 - Dependency Update (Breaking-S)
+- Docs: Added some functional examples.
 - Composer: Updated application-utils minimum to v3.2.0, removing the GeShi security advisory ([#8](https://github.com/Mistralys/text-diff/issues/8)).
 - Composer: Raised minimum PHP version to 8.4.
 - Composer: Raised minimum PHPUnit dev requirement to 12.0.

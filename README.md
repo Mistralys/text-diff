@@ -133,6 +133,37 @@ $diff->dispose();
 > **Note:** Calling any render method after `dispose()` will throw a
 > `DiffException`. Always render before disposing.
 
+## Running the Examples
+
+The `example/` folder demonstrates every renderer — inline HTML, table HTML,
+plain text, and character-level comparisons — against both inline strings
+and sample text files.
+
+### Static preview (no server required)
+
+A pre-built HTML file is included at `example/dist/index.html`.
+Open it directly in your browser for a quick overview.
+
+To regenerate it after making changes:
+
+```bash
+composer install  # only needed once after cloning
+composer build
+```
+
+The output is written to `example/dist/index.html`.
+
+### Live example (PHP web server)
+
+If you want to run the PHP version directly:
+
+```bash
+composer install  # only needed once after cloning
+php -S localhost:8000
+```
+
+Then open `http://localhost:8000/example/` in your browser.
+
 ## Credits
 
 The original Diff class was developed by Kate Morley. Compared to her 

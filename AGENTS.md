@@ -87,6 +87,7 @@ Run these via `composer <script>` from the project root.
 
 | Script | Command | Description |
 |---|---|---|
+| `build` | `php example/build.php` | Generate static HTML preview to `example/dist/index.html`. |
 | `test` | `phpunit` | Run all registered test suites. |
 | `test-file` | `phpunit --no-progress` | Run tests without progress output (for file-scoped runs). |
 | `test-suite` | `phpunit --no-progress --testsuite <name>` | Run a specific test suite by name. |

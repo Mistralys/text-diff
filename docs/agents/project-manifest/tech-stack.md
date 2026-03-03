@@ -39,4 +39,5 @@
 - **Test runner:** PHPUnit, configured via `phpunit.xml`. Bootstrap file: `tests/bootstrap.php`.
 - **Static analysis:** PHPStan, configured at `docs/config/phpstan.neon`, run via `docs/run-phpstan.bat`.
 - **Test shortcut:** `run-tests.bat` at project root.
+- **Static example build:** `composer build` runs `example/build.php`, which captures the output of `example/index.php` and writes it to `example/dist/index.html`. The generated file is committed to VCS as a no-server preview.
 - **Stability:** `minimum-stability: dev`, `prefer-stable: true`.
